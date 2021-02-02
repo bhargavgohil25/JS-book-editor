@@ -16,7 +16,7 @@ const App = () => {
     const ref = useRef<any>();
     const iframe = useRef<any>(); // rather than updating the state we will directly pass the bundled code to the iframe just after bundling is done...
     const [input,setInput] = useState('');
-    const [code,setCode] = useState('');
+    // const [code,setCode] = useState('');
     
     // this service will take the code that is supposed to be transpiled and bundled
     // esbuild will do the both the task in very rapid way... and therefore it used in here 
@@ -40,6 +40,9 @@ const App = () => {
         if(!ref.current){
             return;
         }
+
+        iframe.current.srdoc = html; // this is done because incase if we remove the #root class from the body in iframe, and render something afterwards we might not have to get a an error
+        // but on doing this we are ressting the ifram html.. before bundling the code. 
         // console.log(ref.current);
         // Here, the raw JSX code is passed into transform and the output is will the transpiled code in version of target provided 
         const result = await ref.current.build({
@@ -70,7 +73,13 @@ const App = () => {
                 <div id="root"></div>
                 <script>
                     window.addEventListener('message',(event) => {
-                        eval(event.data);
+                        try{
+                            eval(event.data);
+                        }catch (err){
+                            const root = document.querySelector('#root');
+                            root.innerHTML = '<div style="color: red"><h4> Runtime Error</h4>' + err + '</div>';
+                            console.error(err);
+                        }
                     },false);
                 </script>
             </body>
@@ -85,8 +94,8 @@ const App = () => {
                     Submit 
                 </button>
             </div>
-            <pre>{code}</pre>
-            <iframe ref={iframe} sandbox ="allow-scripts" srcDoc={html}></iframe> 
+            {/* <pre>{code}</pre> */}
+            <iframe title="preview" ref={iframe} sandbox ="allow-scripts" srcDoc={html}></iframe> 
         </div>
     );
 }
