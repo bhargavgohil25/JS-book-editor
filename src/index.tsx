@@ -14,6 +14,7 @@ import { fetchPlugin } from './plugins/fetch-plugin';
 
 const App = () => {
     const ref = useRef<any>();
+    const iframe = useRef<any>(); // rather than updating the state we will directly pass the bundled code to the iframe just after bundling is done...
     const [input,setInput] = useState('');
     const [code,setCode] = useState('');
     
@@ -56,20 +57,36 @@ const App = () => {
         });
         // the transpiled code is saved in result
         // Here we are also bundling the code simultaneously via using 'unpkgPathPlugin'
-        console.log(result);
+        // console.log(result);
 
-        setCode(result.outputFiles[0].text);
+        // setCode(result.outputFiles[0].text); // here we used to change the state of code when it is bundled
+        iframe.current.contentWindow.postMessage(result.outputFiles[0].text,'*');
     };
 
+    const html = `
+        <html>
+            <head></head>
+            <body>
+                <div id="root"></div>
+                <script>
+                    window.addEventListener('message',(event) => {
+                        eval(event.data);
+                    },false);
+                </script>
+            </body>
+        </html>
+    `;
+ 
     return (
         <div>
             <textarea value = {input} onChange = {(e) => setInput(e.target.value)}></textarea>
             <div>
                 <button onClick={onClick}>
-                    Submit
+                    Submit 
                 </button>
             </div>
             <pre>{code}</pre>
+            <iframe ref={iframe} sandbox ="allow-scripts" srcDoc={html}></iframe> 
         </div>
     );
 }
