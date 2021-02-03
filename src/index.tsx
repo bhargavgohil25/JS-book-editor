@@ -1,9 +1,10 @@
+import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import * as esbuild from 'esbuild-wasm'
 import { useState,useEffect,useRef } from "react";
 import ReactDOM from 'react-dom'
-import ts from 'typescript';
 import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
+import CodeEditor from './components/code-editor';
 
 // Another task is the bundling in-Browser process;
 //whenever we see the import statements in the given code we have to to get access to those packages;
@@ -16,7 +17,7 @@ const App = () => {
     const ref = useRef<any>();
     const iframe = useRef<any>(); // rather than updating the state we will directly pass the bundled code to the iframe just after bundling is done...
     const [input,setInput] = useState('');
-    // const [code,setCode] = useState('');
+    const [code,setCode] = useState('');
     
     // this service will take the code that is supposed to be transpiled and bundled
     // esbuild will do the both the task in very rapid way... and therefore it used in here 
@@ -88,13 +89,20 @@ const App = () => {
  
     return (
         <div>
-            <textarea value = {input} onChange = {(e) => setInput(e.target.value)}></textarea>
+            <CodeEditor 
+                initialValue="// Work on your Project Over Here "
+                onChange = {(value) => setInput(value)}
+            />
+            <textarea 
+                value = {input} 
+                onChange = {(e) =>setInput(e.target.value)}
+            ></textarea>
             <div>
                 <button onClick={onClick}>
                     Submit 
                 </button>
             </div>
-            {/* <pre>{code}</pre> */}
+            <pre>{code}</pre> 
             <iframe title="preview" ref={iframe} sandbox ="allow-scripts" srcDoc={html}></iframe> 
         </div>
     );
