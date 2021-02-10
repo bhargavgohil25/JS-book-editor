@@ -28,21 +28,35 @@ const bundle = async (rawcode: string) => {
     // the transpiled code is saved in result
     // Here we are also bundling the code simultaneously via using 'unpkgPathPlugin'
 
-    const result = await service.build({
-        entryPoints : ['index.js'],
-        bundle : true,
-        write : false,
-        plugins : [
-            unpkgPathPlugin(),
-            fetchPlugin(rawcode)
-        ],
-        define: {
-            'process.env.NODE_ENV' : '"production"',
-            global : 'window'
-        }
-    });
+    // This try and catch block is to catch the error from...
+    // the thing which we are returning might be a error message or a successed code..
+    // therefore we are returning the object
+    try{
+        const result = await service.build({
+            entryPoints : ['index.js'],
+            bundle : true,
+            write : false,
+            plugins : [
+                unpkgPathPlugin(),
+                fetchPlugin(rawcode)
+            ],
+            define: {
+                'process.env.NODE_ENV' : '"production"',
+                global : 'window'
+            }
+        });
+        
+        return {
+            code : result.outputFiles[0].text,
+            err: ''
+        };
+    }catch(err){
+        return {
+            code : '',
+            err : err.message
+        };
+    }
 
-    return result.outputFiles[0].text;
 }
 
 

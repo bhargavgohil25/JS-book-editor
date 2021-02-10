@@ -13,12 +13,13 @@ import Resizable from './resizable'
 const CodeCell = () => {
     const [input,setInput] = useState('');
     const [code,setCode] = useState('');
-
+    const [err,setErr] = useState('');
     // we use the debounce logic here to bundle the input code after 1 sec.. if there is no type activity from the editor
     useEffect(() => {
         const timer = setTimeout( async () => {
             const output = await bundle(input);
-            setCode(output);
+            setCode(output.code);
+            setErr(output.err);
         },1300);
         
         return () => {
@@ -46,7 +47,7 @@ const CodeCell = () => {
                     />
                 </Resizable>
                 {/* <pre>{code}</pre>  */}
-                <Preview code={code}/>
+                <Preview code={code} bundlingStatus={err}/>
             </div>
         </Resizable>
     );
