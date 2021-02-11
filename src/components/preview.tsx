@@ -37,7 +37,7 @@ const html = `
         </html>
     `;
 
-const Preview: React.FC<PreviewProps> = ({ code ,err }) => {
+const Preview: React.FC<PreviewProps> = ({ code,err }) => {
     const iframe = useRef<any>(); // rather than updating the state we will directly pass the bundled code to the iframe just after bundling is done...
     
     useEffect(() => {

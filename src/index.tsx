@@ -1,5 +1,6 @@
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
-import CodeCell from './components/code-cell'
+// import CodeCell from './components/code-cell'
+import TextEditor from './components/text-editor'
 import ReactDOM from 'react-dom'
 // Another task is the bundling in-Browser process;
 //whenever we see the import statements in the given code we have to to get access to those packages;
@@ -12,7 +13,9 @@ const App = () => {
 
     return (
         <div>
-            <CodeCell />
+            {/* <CodeCell /> */}
+            <TextEditor />
+
         </div>
     );
 }
