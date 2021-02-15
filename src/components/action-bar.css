@@ -1,0 +1,13 @@
+.action-bar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* z-index: 10; */
+    opacity: 0.25;
+    transition: all 0.3s;
+}
+.action-bar:hover{
+    opacity: 1;
+}
+
+

@@ -4,7 +4,6 @@ import './131 syntax.css'
 import MonacoEditor, { EditorDidMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel'
-import { editor } from 'monaco-editor';
 import codeshift from 'jscodeshift'
 import Highlighter from 'monaco-jsx-highlighter'
 
