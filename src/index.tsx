@@ -1,10 +1,10 @@
-import 'bulmaswatch/superhero/bulmaswatch.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'
+import "bulmaswatch/superhero/bulmaswatch.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 // import CodeCell from './components/code-cell'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux';
-import { store } from './state';
-import CellList from './components/cell-list'
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { store } from "./state";
+import CellList from "./components/cell-list";
 // Another task is the bundling in-Browser process;
 //whenever we see the import statements in the given code we have to to get access to those packages;
 // 1) Now the there is option to to create a server API to and we ask them to always request a package whenever there is a import statet=ment;
@@ -13,20 +13,15 @@ import CellList from './components/cell-list'
 // 3) Now, to download some npm package directly from the browser we will face some cors error and to get rid of those error we will use some third party called 'unpkg.com/{package name}'
 
 const App = () => {
+  return (
+    <Provider store={store}>
+      <div>
+        {/* <CodeCell /> */}
+        {/* <TextEditor /> */}
+        <CellList />
+      </div>
+    </Provider>
+  );
+};
 
-    return (
-        <Provider store={store}>
-            <div>
-                {/* <CodeCell /> */}
-                {/* <TextEditor /> */}
-                <CellList />
-            </div>
-        </Provider>
-        
-    );
-}
-
-ReactDOM.render(
-    <App />,
-    document.querySelector('#root')
-)
+ReactDOM.render(<App />, document.querySelector("#root"));
