@@ -1,6 +1,6 @@
 {
   "name": "js-book-bhargav",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "bin": "dist/index.js",
   "publishConfig": {
@@ -20,7 +20,7 @@
     "@js-book-bhargav/local-client": "^1.0.0"
   },
   "devDependencies": {
-    "@js-book-bhargav/local-api": "^1.0.0",
+    "@js-book-bhargav/local-api": "^1.0.1",
     "@types/node": "^14.14.31",
     "commander": "^7.1.0",
     "esbuild": "0.8.26",
