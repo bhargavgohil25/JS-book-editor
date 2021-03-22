@@ -15,7 +15,6 @@ export const persistMiddleware = ({
   return (next: (action: Action) => void) => {
     return (action: Action) => {
       next(action);
-
       if (
         [
           ActionType.MOVE_CELL,

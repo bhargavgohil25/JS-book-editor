@@ -16,8 +16,8 @@ export const serve = (port: number, filename: string, dir: string , useProxy: bo
       logLevel: 'silent', 
     }))
   }else{
-    //! And this method will be used to run the app when it is installed from the npm packages or in production 
-    const packagePath = require.resolve('local-client/build/index.html'); // require .resolve willl give us the actual path on our machine...
+    //! And this method will be used to run the app when it is installed from the npm packages or in production mode
+    const packagePath = require.resolve('@js-book/local-client/build/index.html'); // require .resolve willl give us the actual path on our machine...
     app.use(express.static(path.dirname(packagePath))); // this is done to send the build foldr from local-client to local api but it won't work when we add in npm packages...
   }
   

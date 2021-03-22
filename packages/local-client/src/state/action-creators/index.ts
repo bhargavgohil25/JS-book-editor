@@ -100,7 +100,7 @@ export const saveCells = () => {
     } = getState();
     const cells = order.map((id) => data[id]);
     try{
-      await axios.post("/cells", { cells });
+      await axios.post("/cells", { cells }); // Posting the cells to the local-api
     }catch(err) {
       dispatch({
         type: ActionType.SAVE_CELLS_ERROR,

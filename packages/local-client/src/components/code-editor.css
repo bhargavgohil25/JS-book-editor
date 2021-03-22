@@ -3,11 +3,22 @@
   height: 100%;
   width: calc(100% - 10px);
 }
-.editor-wrapper .button-format {
+/* .editor-wrapper .button-format {
   position: absolute;
   top: 5px;
   right: 5px;
   z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 7px;
+} */
+.editor-wrapper .button-class {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 20;
+}
+.button-class .button-format {
   opacity: 0;
   transition: opacity 0.3s;
   border-radius: 7px;

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./code-editor.css";
 import "./131 syntax.css";
 import MonacoEditor, { EditorDidMount } from "@monaco-editor/react";
@@ -14,6 +14,8 @@ interface CodeEditorProps {
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
   const editorRef = useRef<any>(); // to get the code value from the editor and format it through prettier and again set the code value to the editor
+
+  const [mode, setMode] = useState(false);
 
   const onEditorDidMount: EditorDidMount = (getValue, monacoEditor) => {
     // this function is used to get the current value in the editor...
@@ -61,12 +63,22 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
 
   return (
     <div className="editor-wrapper">
-      <button
-        className="button button-format is-primary is-small"
-        onClick={onFormatClick}
-      >
-        Format Code
-      </button>
+      <div className="button-class">
+        <button
+          className="button button-format is-primary is-small"
+          onClick={onFormatClick}
+        >
+          Format Code
+        </button>
+        <button 
+          className="button button-format is-primary is-small"
+          onClick={() => setMode(!mode)}
+          >
+            {mode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
+      
+
       <MonacoEditor
         editorDidMount={onEditorDidMount}
         value={initialValue}
@@ -84,7 +96,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
           fontFamily: "cascadia code",
         }}
         language="javascript"
-        theme="vs-dark"
+        theme={mode ? "vs-dark" : "light"}
         height="100%"
       />
     </div>
@@ -92,3 +104,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
 };
 
 export default CodeEditor;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function useToggle(): [any, any] {
+  throw new Error("Function not implemented.");
+}
