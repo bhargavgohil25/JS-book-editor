@@ -1,5 +1,5 @@
 {
-  "name": "@js-book/local-client",
+  "name": "@js-book-bhargav/local-client",
   "version": "0.0.1",
   "publishConfig": {
     "access": "public"
@@ -67,5 +67,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "gitHead": "e905a0a95f3f8eac963ad40414e401155ad439c1"
 }
