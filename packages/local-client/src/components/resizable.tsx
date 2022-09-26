@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { ResizableBox, ResizableBoxProps } from "react-resizable";
-import "./resizable.css";
+import './resizable.css';
+import { useEffect, useState } from 'react';
+import { ResizableBox, ResizableBoxProps } from 'react-resizable';
 
 interface ResizableProps {
-  direction: "horizontal" | "vertical";
+  direction: 'horizontal' | 'vertical';
 }
 
 const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
@@ -26,33 +26,32 @@ const Resizable: React.FC<ResizableProps> = ({ direction, children }) => {
         }
       }, 100);
     };
-    window.addEventListener("resize", listener);
+    window.addEventListener('resize', listener);
 
     return () => {
-      window.removeEventListener("resize", listener);
+      window.removeEventListener('resize', listener);
     };
   }, [width]);
 
-  if (direction === "vertical") {
+  if (direction === 'horizontal') {
     resizableProps = {
-      height: 300,
-      width: Infinity,
-      maxConstraints: [Infinity, innerHeight * 0.9], // downward constraints 90% of the window browser Height
-      minConstraints: [Infinity, 50], // upper constraints
-      resizeHandles: ["s"],
+      className: 'resize-horizontal',
+      minConstraints: [innerWidth * 0.2, Infinity],
+      maxConstraints: [innerWidth * 0.75, Infinity],
+      height: Infinity,
+      width,
+      resizeHandles: ['e'],
+      onResizeStop: (event, data) => {
+        setWidth(data.size.width);
+      },
     };
   } else {
     resizableProps = {
-      className: "resize-horizontal",
-      height: Infinity,
-      width: width,
-      minConstraints: [innerWidth * 0.2, Infinity], // upper constraints
-      maxConstraints: [innerWidth * 0.75, Infinity], // downward constraints 90% of the window browser Height
-      resizeHandles: ["e"],
-      onResizeStop: (event, data) => {
-        // console.log(data);
-        setWidth(data.size.width);
-      },
+      minConstraints: [Infinity, 24],
+      maxConstraints: [Infinity, innerHeight * 0.9],
+      height: 300,
+      width: Infinity,
+      resizeHandles: ['s'],
     };
   }
 

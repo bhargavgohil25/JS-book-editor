@@ -6,5 +6,8 @@
   },
   "scripts": {
     "start": "lerna run start --parallel"
+  },
+  "dependencies": {
+    "framer-motion": "^3.3.0"
   }
 }

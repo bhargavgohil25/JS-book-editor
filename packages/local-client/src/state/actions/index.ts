@@ -1,9 +1,7 @@
-// import { StringLiteralType } from "typescript";
-import { ActionType } from "../action-types";
-import { Cell, CellTypes } from "../cell";
+import { ActionType } from '../action-types';
+import { Cell, CellTypes } from '../cell';
 
-export type Direction = "up" | "down";
-
+export type Direction = 'up' | 'down';
 export interface MoveCellAction {
   type: ActionType.MOVE_CELL;
   payload: {
@@ -66,8 +64,8 @@ export interface FetchCellsErrorAction {
 }
 
 export interface SaveCellsErrorAction {
-  type : ActionType.SAVE_CELLS_ERROR;
-  payload : string;
+  type: ActionType.SAVE_CELLS_ERROR;
+  payload: string;
 }
 
 export type Action =

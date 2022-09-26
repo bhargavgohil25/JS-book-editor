@@ -1,10 +1,10 @@
-import { Dispatch } from "redux";
-import { Action } from "../actions";
-import { ActionType } from "../action-types";
-import { saveCells } from "../action-creators";
-import { RootState } from "../reducers";
+import { Dispatch } from 'redux';
+import { Action } from '../actions';
+import { ActionType } from '../action-types';
+import { saveCells } from '../action-creators';
+import { RootState } from '../reducers';
 
-export const persistMiddleware = ({
+export const persistMiddlware = ({
   dispatch,
   getState,
 }: {
@@ -12,9 +12,11 @@ export const persistMiddleware = ({
   getState: () => RootState;
 }) => {
   let timer: any;
+
   return (next: (action: Action) => void) => {
     return (action: Action) => {
       next(action);
+
       if (
         [
           ActionType.MOVE_CELL,
@@ -26,10 +28,9 @@ export const persistMiddleware = ({
         if (timer) {
           clearTimeout(timer);
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         timer = setTimeout(() => {
-          saveCells()(dispatch, getState); // Because we have wired up the action-creator with the Redux-Thunk
-        }, 300);
+          saveCells()(dispatch, getState);
+        }, 250);
       }
     };
   };

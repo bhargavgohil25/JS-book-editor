@@ -41,8 +41,7 @@ const Preview: React.FC<PreviewProps> = ({ code, err }) => {
   const iframe = useRef<any>();
 
   useEffect(() => {
-    iframe.current.srcdoc = html; // this is done because incase if we remove the #root class from the body in iframe, and render something afterwards we might not have to get a an error
-    // but on doing this we are reseting the iframe html.. before bundling the code.
+    iframe.current.srcdoc = html;
     setTimeout(() => {
       iframe.current.contentWindow.postMessage(code, '*');
     }, 50);

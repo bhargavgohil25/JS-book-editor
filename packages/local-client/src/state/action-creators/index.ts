@@ -1,7 +1,6 @@
-import { ActionType } from "../action-types";
-import { Dispatch } from "redux";
-import axios from "axios";
-import { RootState } from "../reducers";
+import { Dispatch } from 'redux';
+import axios from 'axios';
+import { ActionType } from '../action-types';
 import {
   UpdateCellAction,
   DeleteCellAction,
@@ -9,9 +8,10 @@ import {
   InsertCellAfterAction,
   Direction,
   Action,
-} from "../actions";
-import bundle from "../../bundler";
-import { Cell, CellTypes } from "../cell";
+} from '../actions';
+import { Cell, CellTypes } from '../cell';
+import bundle from '../../bundler';
+import { RootState } from '../reducers';
 
 export const updateCell = (id: string, content: string): UpdateCellAction => {
   return {
@@ -61,6 +61,7 @@ export const createBundle = (cellId: string, input: string) => {
         cellId,
       },
     });
+
     const result = await bundle(input);
 
     dispatch({
@@ -78,7 +79,7 @@ export const fetchCells = () => {
     dispatch({ type: ActionType.FETCH_CELLS });
 
     try {
-      const { data }: { data: Cell[] } = await axios.get("/cells");
+      const { data }: { data: Cell[] } = await axios.get('/cells');
 
       dispatch({
         type: ActionType.FETCH_CELLS_COMPLETE,
@@ -98,14 +99,16 @@ export const saveCells = () => {
     const {
       cells: { data, order },
     } = getState();
+
     const cells = order.map((id) => data[id]);
-    try{
-      await axios.post("/cells", { cells }); // Posting the cells to the local-api
-    }catch(err) {
+
+    try {
+      await axios.post('/cells', { cells });
+    } catch (err) {
       dispatch({
         type: ActionType.SAVE_CELLS_ERROR,
-        payload: err.message
-      })
+        payload: err.message,
+      });
     }
   };
 };
